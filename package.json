@@ -1,0 +1,24 @@
+{
+  "name": "housemate-globalserver",
+  "version": "1.0.0",
+  "description": "Intuso Housemate Global Server",
+  "main": "./app",
+  "scripts": {
+    "dev": "webpack-dev-server --inline",
+    "build": "webpack -p"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "react-hot-loader": "^1.3.1",
+    "webpack": "1.12.9",
+    "webpack-dev-server": "1.14.0"
+  },
+  "dependencies": {
+    "babel-loader": "^6.2.10",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.22.0",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
+  }
+}
