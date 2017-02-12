@@ -1,15 +1,16 @@
 import React from 'react';
+import { Col, Row } from 'react-bootstrap';
 
 import LoginForm from './LoginForm.jsx';
 
 class Login extends React.Component {
     render() {
         return (
-            <div className="row">
-                <div className="col-md-4 col-md-offset-4">
+            <Row>
+                <Col xs={4} xsOffset={4}>
                     <LoginForm />
-                </div>
-            </div>
+                </Col>
+            </Row>
         );
     }
 }

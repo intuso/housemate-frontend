@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
+import { Alert, Button, ControlLabel, FormControl, FormGroup, HelpBlock } from 'react-bootstrap';
 
 import TextFieldGroup from '../../common/TextFieldGroup.jsx';
 import { login } from '../actions.jsx';
@@ -23,36 +24,42 @@ class LoginForm extends React.Component {
 
     render() {
 
-        if(this.props.isAuthenticated)
-            window.location=this.props.onSuccess;
+        if(this.props.isAuthenticated) {
+            window.location = this.props.onSuccess;
+        }
 
         const { email, password } = this.state;
-        const { errors, inProgress } = this.props;
+        const { error, inProgress } = this.props;
 
         return (
             <form onSubmit={this.handleLogin}>
+
                 <h1>Login</h1>
 
-                { errors.form && <div className="alert alert-danger">{errors.form}</div> }
+                { error && <Alert bsStyle="danger">{error}</Alert> }
 
-                <TextFieldGroup
-                    field="email"
-                    label="Email"
-                    value={email}
-                    error={errors.email}
-                    onChange={this.handleEmailChange}
-                />
+                <FormGroup controlId="email">
+                    <ControlLabel>Email</ControlLabel>
+                    <FormControl
+                        type="email"
+                        value={email}
+                        placeholder="someone@example.com"
+                        onChange={this.handleEmailChange}
+                    />
+                    <FormControl.Feedback />
+                </FormGroup>
 
-                <TextFieldGroup
-                    field="password"
-                    label="Password"
-                    value={password}
-                    error={errors.password}
-                    onChange={this.handlePasswordChange}
-                    type="password"
-                />
+                <FormGroup controlId="password">
+                    <ControlLabel>Password</ControlLabel>
+                    <FormControl
+                        type="password"
+                        value={password}
+                        onChange={this.handlePasswordChange}
+                    />
+                    <FormControl.Feedback />
+                </FormGroup>
 
-                <div className="form-group"><button className="btn btn-primary btn-lg" disabled={inProgress}>Login</button></div>
+                <Button type="submit" bsStyle="primary" bsSize="large" disabled={inProgress}>Login</Button>
             </form>
         );
     }
@@ -62,7 +69,7 @@ const mapStateToProps = (state) => {
     return {
         credentials: state.credentials,
         inProgress: state.inProgress,
-        errors: state.errors,
+        error: state.error,
         isAuthenticated: state.isAuthenticated,
         onSuccess: state.onSuccess
     }

@@ -24,11 +24,22 @@ var config = {
     },
     module : {
         loaders : [
-            {
-                test : /\.(jsx?|es6)/,
-                include : APP_DIR,
-                loaders : ['react-hot', 'babel']
-            }
+
+            // main app code
+            { test : /\.(js|jsx|es6)/, include : APP_DIR, loaders : ['react-hot', 'babel'] },
+
+            // css
+            { test: /\.css$/, loader: "style-loader!css-loader" },
+
+            // images
+            { test: /\.png$/, loader: "url-loader?limit=100000" },
+            { test: /\.jpg$/, loader: "file-loader" },
+
+            // fonts for bootstrap
+            { test: /\.(woff|woff2)$/,  loader: "url-loader?limit=10000&mimetype=application/font-woff" },
+            { test: /\.ttf$/,    loader: "file-loader" },
+            { test: /\.eot$/,    loader: "file-loader" },
+            { test: /\.svg$/,    loader: "file-loader" }
         ]
     },
     plugins: [

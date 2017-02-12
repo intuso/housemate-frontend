@@ -1,5 +1,4 @@
-import { LOGIN_REQUEST, LOGIN_RESPONSE, LOGIN_ERROR } from '../actions.jsx';
-import isEmpty from 'lodash/isEmpty';
+import { LOGIN_REQUEST, LOGIN_RESPONSE, SERVER_ERROR } from '../actions.jsx';
 
 var currentPageParams = new URLSearchParams(window.location.search);
 var next = currentPageParams.has('next') ? currentPageParams.get('next') : "../index.html";
@@ -11,11 +10,7 @@ export const defaultState = {
     },
     inProgress: false,
     isAuthenticated: false,
-    errors: {
-        form: '',
-        email: '',
-        password: ''
-    },
+    error: '',
     onSuccess: next
 };
 
@@ -30,17 +25,13 @@ export default (state = defaultState, action = {}) => {
             return Object.assign({}, state, {
                 inProgress: false,
                 isAuthenticated: action.user !== null,
-                errors: action.errors
+                error: action.error
             });
-        case LOGIN_ERROR:
+        case SERVER_ERROR:
             return Object.assign({}, state, {
                 inProgress: false,
                 isAuthenticated: false,
-                errors: {
-                    form: 'Failed to contact server. Please try again later',
-                    email: '',
-                    password: ''
-                }
+                error: 'Failed to contact server. Please try again later'
             });
         default:
             return state;

@@ -12,18 +12,18 @@ export function loginRequest(email, password) {
 }
 
 export const LOGIN_RESPONSE = 'LOGIN_RESPONSE';
-export function loginResponse(user, errors) {
+export function loginResponse(user, error) {
     return {
         type: LOGIN_RESPONSE,
         user: user,
-        errors: errors
+        error: error
     }
 }
 
-export const LOGIN_ERROR = 'LOGIN_ERROR';
-export function loginError() {
+export const SERVER_ERROR = 'SERVER_ERROR';
+export function serverError() {
     return {
-        type: LOGIN_ERROR
+        type: SERVER_ERROR
     }
 }
 
@@ -42,12 +42,15 @@ export function login(email, password) {
                 }),
                 body: postParams
             })
-            .then(response => response.json())
-            .then(json => dispatch(loginResponse(json.user, {
-                form: json.error,
-                email: '',
-                password: ''
-            })))
-            .catch(e => dispatch(loginError()))
+            .then(response => {
+                if(response.ok) {
+                    response.json().then(json => {
+                        dispatch(loginResponse(json.user, json.error))
+                    })
+                } else {
+                    dispatch(serverError())
+                }
+            })
+            .catch(e => dispatch(serverError()))
     }
 }
