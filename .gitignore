@@ -54,3 +54,7 @@ npm-debug.log
 # Conf location for testing #
 ######################
 work.dir
+
+# Built files        #
+######################
+build/js
