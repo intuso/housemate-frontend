@@ -1,18 +1,18 @@
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 
-import LoginForm from './LoginForm.jsx';
+import Form from './Form.jsx';
 
-class Login extends React.Component {
+class Layout extends React.Component {
     render() {
         return (
             <Row>
                 <Col xs={4} xsOffset={4}>
-                    <LoginForm />
+                    <Form />
                 </Col>
             </Row>
         );
     }
 }
 
-export default Login
+export default Layout

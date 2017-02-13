@@ -1,17 +1,17 @@
 import fetch from 'isomorphic-fetch'
 
-export const LOGIN_REQUEST = 'LOGIN_REQUEST';
-function loginRequest(credentials) {
+export const REGISTER_REQUEST = 'REGISTER_REQUEST';
+function registerRequest(credentials) {
     return {
-        type: LOGIN_REQUEST,
+        type: REGISTER_REQUEST,
         credentials: credentials
     }
 }
 
-export const LOGIN_RESPONSE = 'LOGIN_RESPONSE';
-function loginResponse(response) {
+export const REGISTER_RESPONSE = 'REGISTER_RESPONSE';
+function registerResponse(response) {
     return {
-        type: LOGIN_RESPONSE,
+        type: REGISTER_RESPONSE,
         response: response
     }
 }
@@ -23,13 +23,13 @@ function serverError() {
     }
 }
 
-export function login(email, password) {
+export function register(email, password) {
     return function (dispatch) {
-        dispatch(loginRequest({ email: email, password: password }));
+        dispatch(registerRequest({ email: email, password: password }));
         var postParams = new URLSearchParams();
         postParams.append('email', email);
         postParams.append('password', password);
-        return fetch(`../api/globalserver/1.0/login`, {
+        return fetch(`../api/globalserver/1.0/register`, {
                 method: 'POST',
                 credentials: 'include',
                 headers : new Headers({
@@ -40,7 +40,7 @@ export function login(email, password) {
             })
             .then(response => {
                 if(response.ok) {
-                    response.json().then(json => dispatch(loginResponse(json)))
+                    response.json().then(json => dispatch(registerResponse(json)))
                 } else {
                     dispatch(serverError())
                 }
