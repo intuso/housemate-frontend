@@ -29,7 +29,7 @@ export function login(email, password) {
         var postParams = new URLSearchParams();
         postParams.append('email', email);
         postParams.append('password', password);
-        return fetch(`../api/globalserver/1.0/login`, {
+        return fetch(`../api/server/1.0/login`, {
                 method: 'POST',
                 credentials: 'include',
                 headers : new Headers({

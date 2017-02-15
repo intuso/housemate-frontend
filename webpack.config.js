@@ -6,15 +6,20 @@ var APP_DIR = path.resolve(__dirname, 'app');
 
 var config = {
     entry: {
-        "index": [
+        "home": [
             'webpack-dev-server/client?http://0.0.0.0:8080', // WebpackDevServer host and port
             'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
-            path.resolve(APP_DIR, 'main', 'main.jsx')
+            path.resolve(APP_DIR, 'home', 'home.jsx')
         ],
         "login": [
             'webpack-dev-server/client?http://0.0.0.0:8080', // WebpackDevServer host and port
             'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
             path.resolve(APP_DIR, 'login', 'login.jsx')
+        ],
+        "profile": [
+            'webpack-dev-server/client?http://0.0.0.0:8080', // WebpackDevServer host and port
+            'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
+            path.resolve(APP_DIR, 'profile', 'profile.jsx')
         ],
         "register": [
             'webpack-dev-server/client?http://0.0.0.0:8080', // WebpackDevServer host and port

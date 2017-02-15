@@ -1,6 +1,6 @@
 import React from 'react';
 
-class MainLayout extends React.Component {
+class Layout extends React.Component {
     render() {
         return (
             <div className="row">
@@ -10,4 +10,4 @@ class MainLayout extends React.Component {
     }
 }
 
-export default MainLayout
+export default Layout

@@ -14,6 +14,6 @@ const defaultState = {
     credentials: credentials.defaultState,
     frontend: frontend.defaultState,
     response: response.defaultState
-}
+};
 
 export default rootReducer

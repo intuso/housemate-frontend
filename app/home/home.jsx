@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux'
 
 import configureStore from './configureStore.jsx'
-import MainLayout from './components/MainLayout.jsx';
+import Layout from './components/Layout.jsx';
 
 ReactDOM.render(
     <Provider store={configureStore(initialState)}>
-        <MainLayout />
+        <Layout />
     </Provider>,
     document.getElementById('app')
 )

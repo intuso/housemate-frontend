@@ -3,7 +3,7 @@ import { REGISTER_RESPONSE, SERVER_ERROR } from '../actions.jsx';
 export const defaultState = {
     error: '',
     validEmail: false,
-    alreadyRegistered: false,
+    alreadyRegistered: true,
     validPassword: false,
     success: false
 };
@@ -22,7 +22,7 @@ export default (state = defaultState, action = {}) => {
             return Object.assign({}, state, {
                 error: 'Oops, the server could not be reached. Please try again later',
                 validEmail: false,
-                alreadyRegistered: false,
+                alreadyRegistered: true,
                 validPassword: false,
                 success: false
             });

@@ -29,7 +29,7 @@ export function register(email, password) {
         var postParams = new URLSearchParams();
         postParams.append('email', email);
         postParams.append('password', password);
-        return fetch(`../api/globalserver/1.0/register`, {
+        return fetch(`../api/server/1.0/register`, {
                 method: 'POST',
                 credentials: 'include',
                 headers : new Headers({
