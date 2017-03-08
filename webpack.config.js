@@ -58,7 +58,7 @@ var config = {
     devServer: {
         host: "0.0.0.0",
         port: 8080,
-        contentBase: path.resolve(__dirname, 'build', 'html'),
+        contentBase: path.resolve(__dirname, 'build'),
         proxy: {
             '/api/*': {
                 target: 'http://localhost:8090'
