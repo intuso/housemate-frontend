@@ -3,28 +3,34 @@ var path = require('path');
 
 var BUILD_DIR = path.resolve(__dirname, 'build', 'js');
 var APP_DIR = path.resolve(__dirname, 'app');
+var PAGES = path.resolve(APP_DIR, 'pages');
 
 var config = {
     entry: {
+        "devices": [
+            'webpack-dev-server/client?http://0.0.0.0:8080', // WebpackDevServer host and port
+            'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
+            path.resolve(PAGES, 'devices', 'devices.jsx')
+        ],
         "home": [
             'webpack-dev-server/client?http://0.0.0.0:8080', // WebpackDevServer host and port
             'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
-            path.resolve(APP_DIR, 'home', 'home.jsx')
+            path.resolve(PAGES, 'home', 'home.jsx')
         ],
         "login": [
             'webpack-dev-server/client?http://0.0.0.0:8080', // WebpackDevServer host and port
             'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
-            path.resolve(APP_DIR, 'login', 'login.jsx')
+            path.resolve(PAGES, 'login', 'login.jsx')
         ],
         "profile": [
             'webpack-dev-server/client?http://0.0.0.0:8080', // WebpackDevServer host and port
             'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
-            path.resolve(APP_DIR, 'profile', 'profile.jsx')
+            path.resolve(PAGES, 'profile', 'profile.jsx')
         ],
         "register": [
             'webpack-dev-server/client?http://0.0.0.0:8080', // WebpackDevServer host and port
             'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
-            path.resolve(APP_DIR, 'register', 'register.jsx')
+            path.resolve(PAGES, 'register', 'register.jsx')
         ]
     },
     output: {
@@ -52,6 +58,10 @@ var config = {
             { test: /\.svg$/,    loader: "file-loader" }
         ]
     },
+    resolve: {
+        // you can now require('file') instead of require('file.jsx')
+        // extensions: ['.js', '.json', '.coffee', '.jsx', '.less', '.css']
+    },
     plugins: [
         new webpack.HotModuleReplacementPlugin()
     ],
@@ -61,7 +71,7 @@ var config = {
         contentBase: path.resolve(__dirname, 'build'),
         proxy: {
             '/api/*': {
-                target: 'http://localhost:8090'
+                target: 'http://localhost:4601'
             }
         }
     }
