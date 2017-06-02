@@ -1,14 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Col, Label } from 'react-bootstrap';
 
 const Device = ({device}) => (
-    <div className="col-md-4">
-        {device.name}
-    </div>
+    <Col xs={4}>
+        <Label>{device.name}</Label>
+    </Col>
 );
 
 const mapStateToProps = (state, ownProps) => ({
-    device: state.devices[ownProps.id],
+    device: state.devices.byId[ownProps.id]
 });
 
 export default connect(mapStateToProps)(Device)

@@ -1,14 +1,17 @@
-import React       from 'react'
-import connect from 'react-redux'
+import React from 'react'
+import { connect } from 'react-redux'
+import { Label, Row } from 'react-bootstrap'
 
-const DeviceList = ({devices, ids, actions}) => (
-    <div className='row'>
-        {ids.map((id, index) => <Device key={id} id={id} index={index} />)}
-    </div>
-);
+import Device from "./Device.jsx"
+
+const DeviceList = ({ids}) => (
+    <Row>
+        {ids.map((id) => <Device key={id} id={id} />)}
+    </Row>
+)
 
 const mapStateToProps = (state) => ({
     ids: state.devices.ids
-});
+})
 
 export default connect(mapStateToProps)(DeviceList)

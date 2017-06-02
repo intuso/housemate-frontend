@@ -29,8 +29,7 @@ class Form extends React.Component {
         const { hasSubmitted, inProgress, next } = this.props.frontend;
 
         if(correctPassword) {
-            // window.location = next;
-            alert("Should redirect to: " + next);
+            window.location = next;
         }
 
         // if nothing submitted, show no errors

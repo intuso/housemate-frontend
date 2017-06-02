@@ -7,7 +7,7 @@ import createLogger  from 'redux-logger'
 import thunkMiddleware  from 'redux-thunk'
 
 import Layout from './components/Layout.jsx';
-import rootReducer  from './reducers/rootReducer.jsx'
+import rootReducer from './reducers/rootReducer.jsx'
 
 let store = createStore(
     rootReducer,

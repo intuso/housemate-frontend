@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux'
+
 import devices from './devices.jsx'
 import frontend from './frontend.jsx'
 
 const rootReducer = combineReducers({
-    devices
+    devices,
+    frontend
 });
 
 const defaultState = {

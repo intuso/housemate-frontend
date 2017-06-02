@@ -1,15 +1,14 @@
 import fetch from 'isomorphic-fetch'
 
 export const LOAD_REQUEST = 'LOAD_REQUEST';
-function loginRequest(credentials) {
+function loadRequest() {
     return {
-        type: LOAD_REQUEST,
-        credentials: credentials
+        type: LOAD_REQUEST
     }
 }
 
 export const LOAD_RESPONSE = 'LOAD_RESPONSE';
-function loginResponse(response) {
+function loadResponse(response) {
     return {
         type: LOAD_RESPONSE,
         response: response
@@ -26,18 +25,16 @@ function serverError() {
 export function load() {
     return function (dispatch) {
         dispatch(loadRequest());
-        var postParams = new URLSearchParams();
-        return fetch(`../api/server/1.0/devices`, {
+        return fetch(`../api/server/1.0/util/ability/power`, {
                 method: 'GET',
                 credentials: 'include',
                 headers : new Headers({
                     'Accept': 'application/json'
-                }),
-                body: postParams
+                })
             })
             .then(response => {
                 if(response.ok) {
-                    response.json().then(json => dispatch(loginResponse(json)))
+                    response.json().then(json => dispatch(loadResponse(json)))
                 } else {
                     dispatch(serverError())
                 }
