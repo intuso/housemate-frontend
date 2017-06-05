@@ -1,11 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Col, Label } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
+import Header from '../Header.jsx'
 
 const Device = ({device}) => (
     <Col xs={4}>
-        <div className="device">
-            <div className="header"><span>{device.name}</span></div>
+        <div className="object device">
+            <Header name={device.name} />
             <div className="body">
 
             </div>

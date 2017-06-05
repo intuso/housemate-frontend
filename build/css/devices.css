@@ -1,4 +1,4 @@
-.device {
+.object {
     margin: 10px;
     border: 1px;
     border-style: solid;
@@ -6,12 +6,12 @@
     border-color: #4422ee;
 }
 
-.device > .header {
+.object > .header {
     background: #4422ee;
     padding: 5px;
     color: white;
 }
 
-.device > .body {
+.object > .body {
     padding: 5px;
 }
