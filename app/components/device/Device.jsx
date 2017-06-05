@@ -4,7 +4,12 @@ import { Col, Label } from 'react-bootstrap';
 
 const Device = ({device}) => (
     <Col xs={4}>
-        <Label>{device.name}</Label>
+        <div className="device">
+            <div className="header"><span>{device.name}</span></div>
+            <div className="body">
+
+            </div>
+        </div>
     </Col>
 );
 

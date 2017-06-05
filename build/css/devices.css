@@ -1,0 +1,17 @@
+.device {
+    margin: 10px;
+    border: 1px;
+    border-style: solid;
+    border-radius: 5px;
+    border-color: #4422ee;
+}
+
+.device > .header {
+    background: #4422ee;
+    padding: 5px;
+    color: white;
+}
+
+.device > .body {
+    padding: 5px;
+}
