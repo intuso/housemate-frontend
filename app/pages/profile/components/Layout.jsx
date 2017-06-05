@@ -2,12 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Alert, Col, Row } from 'react-bootstrap';
 
+import Header from '../../../components/header/Header.jsx'
 import Form from './Form.jsx';
 
 class Layout extends React.Component {
 
     render() {
-        return this.props.loading ? <Loading /> : <Form />;
+        return (<div>
+            <Header />
+            {this.props.loading ? <Loading /> : <Form />}
+        </div>);
     }
 }
 
