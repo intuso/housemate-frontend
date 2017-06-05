@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 
-import DeviceList from '../../../components/device/DeviceList.jsx'
+import DeviceList from '../../../components/object/device/DeviceList.jsx'
 import { load } from '../actions.jsx'
 
 class Layout extends React.Component {
