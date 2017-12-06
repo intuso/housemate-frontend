@@ -11,10 +11,10 @@ export default (state = defaultState, action = {}) => {
             // todo use "ramda" library and merge functionality.
             // previous problem was byId and ids were the original objects being edited so the references were the same. Now we create new ones, but we lose all data from before.
             var result = {ids : [], byId : {}};
-            for (var index in action.response.elements) {
-                var device = action.response.elements[index]
-                result.ids.push(device.id);
-                result.byId[device.id] = device;
+            for (var index in action.response.children) {
+                var device = action.response.children[index]
+                result.ids.push(device.data.id);
+                result.byId[device.data.id] = device;
             }
             return Object.assign({}, state, result);
         case SERVER_ERROR:

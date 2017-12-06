@@ -5,9 +5,9 @@ import { Label, Row } from 'react-bootstrap'
 import Device from "./Device.jsx"
 
 const DeviceList = ({ids}) => (
-    <Row>
+    <ul className="object-list">
         {ids.map((id) => <Device key={id} id={id} />)}
-    </Row>
+    </ul>
 )
 
 const mapStateToProps = (state) => ({

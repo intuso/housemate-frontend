@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
+import { Grid } from 'react-bootstrap'
 
 import Header from '../../../components/header/Header.jsx'
 import DeviceList from '../../../components/object/device/DeviceList.jsx'
@@ -14,10 +15,10 @@ class Layout extends React.Component {
 
     render() {
         return (
-            <div>
+            <Grid fluid={true}>
                 <Header />
                 <DeviceList />
-            </div>
+            </Grid>
         )
     }
 }

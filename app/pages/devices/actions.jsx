@@ -25,11 +25,16 @@ function serverError() {
 export function load() {
     return function (dispatch) {
         dispatch(loadRequest());
-        return fetch(`../api/server/1.0/util/ability/power`, {
-                method: 'GET',
+        return fetch(`../api/server/1.0/object/view?path=device`, {
+                method: 'POST',
                 credentials: 'include',
                 headers : new Headers({
+                    'Content-Type': 'application/json',
                     'Accept': 'application/json'
+                }),
+                body : JSON.stringify({
+                    _type : "list",
+                    mode : "CHILDREN"
                 })
             })
             .then(response => {

@@ -1,17 +1,18 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Col } from 'react-bootstrap';
-import Header from '../Header.jsx'
+import { Col, Glyphicon } from 'react-bootstrap';
+import Ability from '../ability/Ability.jsx'
+import Name from '../Name.jsx'
 
 const Device = ({device}) => (
-    <Col xs={4}>
-        <div className="object device">
-            <Header name={device.name} />
-            <div className="body">
-
+    <li className="object device">
+        <Name name={device.data.name} />
+        <div className="body container">
+            <div className="body content">
+                {device.data.abilities.map((ability) => <Ability key={ability} id={ability} device={device}/>)}
             </div>
         </div>
-    </Col>
+    </li>
 );
 
 const mapStateToProps = (state, ownProps) => ({

@@ -45,6 +45,7 @@ var config = {
             { test : /\.(js|jsx|es6)/, include : APP_DIR, loaders : ['react-hot', 'babel'] },
 
             // css
+            // { test: /\.less$/, use: ExtractTextPlugin.extract({fallback: "style-loader", use: ["css-loader", "less-loader"]}) },
             { test: /\.css$/, loader: "style-loader!css-loader" },
 
             // images
@@ -58,10 +59,16 @@ var config = {
             { test: /\.svg$/,    loader: "file-loader" }
         ]
     },
-    resolve: {
+    /*resolve: {
+        modules: [
+            path.join(APP_DIR, "components"),
+            path.join(APP_DIR, "pages"),
+            path.join(APP_DIR, "css"),
+            "node_modules"
+        ],
         // you can now require('file') instead of require('file.jsx')
-        // extensions: ['.js', '.json', '.coffee', '.jsx', '.less', '.css']
-    },
+        extensions: ['.js', '.json', '.coffee', '.jsx', '.less', '.css']
+    },*/
     plugins: [
         new webpack.HotModuleReplacementPlugin()
     ],
