@@ -25,7 +25,7 @@ function serverError() {
 export function load() {
     return function (dispatch) {
         dispatch(loadRequest());
-        return fetch(`../api/server/1.0/object/view?path=device`, {
+        return fetch(`../api/server/1.0/object/view?path=/`, {
                 method: 'POST',
                 credentials: 'include',
                 headers : new Headers({
@@ -33,8 +33,20 @@ export function load() {
                     'Accept': 'application/json'
                 }),
                 body : JSON.stringify({
-                    _type : "list",
-                    mode : "CHILDREN"
+                    _type : "server",
+                    mode : "SELECTION",
+                    devices : {
+                        _type : "list",
+                        mode : "CHILDREN",
+                        view : {
+                            _type : "device",
+                            mode : "CHILDREN",
+                            values : {
+                                _type : "list",
+                                mode : "ANCESTORS"
+                            }
+                        }
+                    }
                 })
             })
             .then(response => {

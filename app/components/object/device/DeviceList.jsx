@@ -4,14 +4,14 @@ import { Label, Row } from 'react-bootstrap'
 
 import Device from "./Device.jsx"
 
-const DeviceList = ({ids}) => (
+const DeviceList = ({deviceIds}) => (
     <ul className="object-list">
-        {ids.map((id) => <Device key={id} id={id} />)}
+        {deviceIds.map((deviceId) => <Device key={deviceId} deviceId={deviceId} />)}
     </ul>
 )
 
 const mapStateToProps = (state) => ({
-    ids: state.devices.ids
+    deviceIds: state.devices.ids
 })
 
 export default connect(mapStateToProps)(DeviceList)

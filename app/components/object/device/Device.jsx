@@ -9,14 +9,14 @@ const Device = ({device}) => (
         <Name name={device.data.name} />
         <div className="body container">
             <div className="body content">
-                {device.data.abilities.map((ability) => <Ability key={ability} id={ability} device={device}/>)}
+                {device.data.abilities.map((ability) => <Ability key={ability} ability={ability} deviceId={device.data.id}/>)}
             </div>
         </div>
     </li>
 );
 
 const mapStateToProps = (state, ownProps) => ({
-    device: state.devices.byId[ownProps.id]
+    device: state.devices.byId[ownProps.deviceId]
 });
 
 export default connect(mapStateToProps)(Device)

@@ -11,8 +11,8 @@ export default (state = defaultState, action = {}) => {
             // todo use "ramda" library and merge functionality.
             // previous problem was byId and ids were the original objects being edited so the references were the same. Now we create new ones, but we lose all data from before.
             var result = {ids : [], byId : {}};
-            for (var index in action.response.children) {
-                var device = action.response.children[index]
+            for (var index in action.response.children.devices.children) {
+                var device = action.response.children.devices.children[index]
                 result.ids.push(device.data.id);
                 result.byId[device.data.id] = device;
             }
