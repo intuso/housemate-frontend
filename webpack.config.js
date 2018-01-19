@@ -42,7 +42,7 @@ var config = {
         loaders : [
 
             // main app code
-            { test : /\.(js|jsx|es6)/, include : APP_DIR, loaders : ['react-hot', 'babel'] },
+            { test : /\.(js|jsx|es6)/, include : APP_DIR, loaders : ['babel-loader'] },
 
             // css
             // { test: /\.less$/, use: ExtractTextPlugin.extract({fallback: "style-loader", use: ["css-loader", "less-loader"]}) },
@@ -78,7 +78,8 @@ var config = {
         contentBase: path.resolve(__dirname, 'build'),
         proxy: {
             '/api/*': {
-                target: 'http://localhost:4601'
+                target: 'http://localhost:4601',
+                ws: true
             }
         }
     }

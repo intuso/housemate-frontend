@@ -4,19 +4,20 @@ import { Col, Glyphicon } from 'react-bootstrap';
 import Ability from '../ability/Ability.jsx'
 import Name from '../Name.jsx'
 
-const Device = ({device}) => (
+const Device = ({devicePath, device}) => (
     <li className="object device">
         <Name name={device.data.name} />
         <div className="body container">
             <div className="body content">
-                {device.data.abilities.map((ability) => <Ability key={ability} ability={ability} deviceId={device.data.id}/>)}
+                {device.data && device.data.abilities && device.data.abilities.map((ability) => <Ability key={ability} devicePath={devicePath} device={device} ability={ability} />)}
             </div>
         </div>
     </li>
 );
 
 const mapStateToProps = (state, ownProps) => ({
-    device: state.devices.byId[ownProps.deviceId]
+    devicePath: ownProps.devicePath,
+    device: ownProps.device
 });
 
 export default connect(mapStateToProps)(Device)

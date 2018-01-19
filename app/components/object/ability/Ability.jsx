@@ -1,40 +1,52 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Col, Glyphicon } from 'react-bootstrap';
+import { bindActionCreators } from 'redux'
+import { Button } from 'react-bootstrap';
+import { perform } from '../../../tree/actions.jsx'
 
 class Ability extends React.Component {
+
+    turnOn = (e) => this.props.actions.perform(this.props.devicePath + ".commands.on", {});
+
+    turnOff = (e) => this.props.actions.perform(this.props.devicePath + ".commands.off", {});
 
     render() {
         if(this.props.ability === 'power') {
             var on = this.props.device.children.values.children.on;
             if (this.props.device.data.classes.includes('light')) {
-                if(on) {
+                if(on && on.data && on.data.values && on.data.values.elements && on.data.values.elements[0] && on.data.values.elements[0].value === 'true') {
                     return (<div className="ability">
-                        <img src="../image/light-on.png"/>
+                        <Button bsStyle='default' onClick={this.turnOff}><img src="../image/light-on.png"/></Button>
                     </div>)
                 } else {
                     return (<div className="ability">
-                        <img src="../image/light-off.png"/>
+                        <Button bsStyle='default' onClick={this.turnOn}><img src="../image/light-off.png"/></Button>
                     </div>)
                 }
             } else {
-                if(on) {
+                if(on && on.data && on.data.values && on.data.values.elements && on.data.values.elements[0] && on.data.values.elements[0].value === 'true') {
                     return (<div className="ability">
-                        <img src="../image/power-on.png"/>
+                        <Button bsStyle='default' onClick={this.turnOff}><img src="../image/power-on.png"/></Button>
                     </div>)
                 } else {
                     return (<div className="ability">
-                        <img src="../image/power-off.png"/>
+                        <Button bsStyle='default' onClick={this.turnOn}><img src="../image/power-off.png"/></Button>
                     </div>)
                 }
             }
-        }
+        } else
+            return null;
     }
 }
 
 const mapStateToProps = (state, ownProps) => ({
-    device: state.devices.byId[ownProps.deviceId],
+    devicePath: ownProps.devicePath,
+    device: ownProps.device,
     ability: ownProps.ability
 });
 
-export default connect(mapStateToProps)(Ability)
+const mapDispatchToProps = (dispatch) => ({
+    actions: bindActionCreators({ perform }, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Ability)

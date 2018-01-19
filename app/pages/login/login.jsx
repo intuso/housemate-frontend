@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux'
 import { compose, createStore, applyMiddleware } from 'redux'
-import createLogger  from 'redux-logger'
+import { createLogger } from 'redux-logger'
 import thunkMiddleware  from 'redux-thunk'
 
 import Layout from './components/Layout.jsx';

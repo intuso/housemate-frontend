@@ -1,15 +1,15 @@
 import { combineReducers } from 'redux'
 
-import devices from './devices.jsx'
-import frontend from './frontend.jsx'
+import tree from '../../../tree/reducers/tree.jsx'
+import frontend from '../../../tree/reducers/frontend.jsx'
 
 const rootReducer = combineReducers({
-    devices,
+    tree,
     frontend
 });
 
 const defaultState = {
-    devices: devices.defaultState,
+    tree: tree.defaultState,
     frontend: frontend.defaultState
 };
 

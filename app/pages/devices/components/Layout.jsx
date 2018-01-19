@@ -5,12 +5,29 @@ import { Grid } from 'react-bootstrap'
 
 import Header from '../../../components/header/Header.jsx'
 import DeviceList from '../../../components/object/device/DeviceList.jsx'
-import { load } from '../actions.jsx'
+import { listen, load } from '../../../tree/actions.jsx'
 
 class Layout extends React.Component {
 
     componentDidMount() {
-        this.props.actions.load();
+        this.props.actions.listen();
+        this.props.actions.load({
+            _type : "server",
+            mode : "SELECTION",
+            devices : {
+                _type : "list",
+                mode : "CHILDREN",
+                view : {
+                    _type : "device",
+                    mode : "SELECTION",
+                    values : {
+                        _type : "list",
+                        mode : "ANCESTORS",
+                        watchAncestors : true
+                    }
+                }
+            }
+        });
     }
 
     render() {
@@ -25,11 +42,11 @@ class Layout extends React.Component {
 
 const mapStateToProps = (state) => ({
     frontend: state.frontend,
-    devices: state.devices
+    tree: state.tree
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    actions: bindActionCreators({ load }, dispatch)
+    actions: bindActionCreators({ listen, load }, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Layout);
