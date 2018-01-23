@@ -7,7 +7,8 @@ export default (state = defaultState, action = {}) => {
     let result = deepCopy(state);
     switch(action.type) {
         case ActionTypes.RECEIVED_WEBSOCKET_DATA:
-            merge(get(result, action.payload.path), action.payload.tree);
+            if(path !== undefined && path !== null)
+                merge(get(result, action.payload.path), action.payload.tree);
             break;
         case LOAD_RESPONSE:
             merge(result, action.tree);
