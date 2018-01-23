@@ -26,7 +26,7 @@ function serverError() {
 export function login(email, password) {
     return function (dispatch) {
         dispatch(loginRequest({ email: email, password: password }));
-        var postParams = new URLSearchParams();
+        const postParams = new URLSearchParams();
         postParams.append('email', email);
         postParams.append('password', password);
         return fetch(`../api/server/1.0/login`, {

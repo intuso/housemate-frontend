@@ -12,7 +12,7 @@ class Ability extends React.Component {
 
     render() {
         if(this.props.ability === 'power') {
-            var on = this.props.device.children.values.children.on;
+            const on = this.props.device.children.values.children.on;
             if (this.props.device.data.classes.includes('light')) {
                 if(on && on.data && on.data.values && on.data.values.elements && on.data.values.elements[0] && on.data.values.elements[0].value === 'true') {
                     return (<div className="ability">

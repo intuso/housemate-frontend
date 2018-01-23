@@ -1,7 +1,7 @@
 import { LOAD_REQUEST, LOAD_RESPONSE, LOAD_ERROR, SAVE_REQUEST, SAVE_RESPONSE, SAVE_ERROR } from '../actions.jsx';
 
-var currentPageParams = new URLSearchParams(window.location.search);
-var next = currentPageParams.has('next') ? currentPageParams.get('next') : '../index.html';
+const currentPageParams = new URLSearchParams(window.location.search);
+const next = currentPageParams.has('next') ? currentPageParams.get('next') : '../index.html';
 
 export const defaultState = {
     loading: true,

@@ -34,7 +34,7 @@ function get(object, path) {
     if(path === null || path.length === 0)
         return object;
 
-    var current = object;
+    let current = object;
     let pathElements = path.split(".");
     for(let index in pathElements) {
         if(current.children === undefined)

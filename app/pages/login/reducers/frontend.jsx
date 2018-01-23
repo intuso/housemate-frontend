@@ -1,7 +1,7 @@
 import { LOGIN_REQUEST, LOGIN_RESPONSE, SERVER_ERROR } from '../actions.jsx';
 
-var currentPageParams = new URLSearchParams(window.location.search);
-var next = currentPageParams.has('next') ? currentPageParams.get('next') : '../index.html';
+const currentPageParams = new URLSearchParams(window.location.search);
+const next = currentPageParams.has('next') ? currentPageParams.get('next') : '../index.html';
 
 export const defaultState = {
     hasSubmitted: false,
