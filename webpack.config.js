@@ -5,6 +5,8 @@ var BUILD_DIR = path.resolve(__dirname, 'build', 'js');
 var APP_DIR = path.resolve(__dirname, 'app');
 var PAGES = path.resolve(APP_DIR, 'pages');
 
+// todo in package.json restore to build script to "webpack -p" when uglify supports es6 or use an alternative to uglify
+
 var config = {
     entry: {
         "devices": [
