@@ -44,7 +44,7 @@ function performResponse(path, success, message) {
 export function listen() {
     return function (dispatch) {
         dispatch(connectWebSocketAction(
-            (window.location.protocol === 'https' ? "wss" : "ws")
+            (window.location.protocol === 'https:' ? "wss" : "ws")
             + "://"
             + window.location.host
             + window.location.pathname
