@@ -12,9 +12,10 @@ class Ability extends React.Component {
 
     render() {
         if(this.props.ability === 'power') {
-            const on = this.props.device.children.values.children.on;
+            const onValue = this.props.device.children.values.children.on;
+            const isOn = onValue && onValue.data && onValue.data.values && onValue.data.values.elements && onValue.data.values.elements[0] && onValue.data.values.elements[0].value && onValue.data.values.elements[0].value.toLowerCase() === 'true';
             if (this.props.device.data.classes.includes('light')) {
-                if(on && on.data && on.data.values && on.data.values.elements && on.data.values.elements[0] && on.data.values.elements[0].value === 'true') {
+                if(isOn) {
                     return (<div className="ability">
                         <Button bsStyle='default' onClick={this.turnOff}><img src="../image/light-on.png"/></Button>
                     </div>)
@@ -24,7 +25,7 @@ class Ability extends React.Component {
                     </div>)
                 }
             } else {
-                if(on && on.data && on.data.values && on.data.values.elements && on.data.values.elements[0] && on.data.values.elements[0].value === 'true') {
+                if(isOn) {
                     return (<div className="ability">
                         <Button bsStyle='default' onClick={this.turnOff}><img src="../image/power-on.png"/></Button>
                     </div>)
