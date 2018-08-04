@@ -104,6 +104,11 @@
     flex-wrap: wrap;
 }
 
+.ability-row {
+    display: flex;
+    justify-content: center;
+}
+
 .object .body.content img {
     width : 2em;
     height: 2em;

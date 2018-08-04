@@ -6,18 +6,20 @@ import { perform } from '../../../tree/actions.jsx'
 
 class Ability extends React.Component {
 
-    turnOn = (e) => this.props.actions.perform(this.props.devicePath + ".commands.on", {});
+    turnOn = (event) => this.props.actions.perform(this.props.devicePath + ".commands.on", {});
 
-    turnOff = (e) => this.props.actions.perform(this.props.devicePath + ".commands.off", {});
+    turnOff = (event) => this.props.actions.perform(this.props.devicePath + ".commands.off", {});
 
-    increase = (e) => this.props.actions.perform(this.props.devicePath + ".commands.increase", {});
+    set = (event) => this.props.actions.perform(this.props.devicePath + ".commands.set", {"percent" : [{"value" : event.target.value}]});
 
-    decrease = (e) => this.props.actions.perform(this.props.devicePath + ".commands.decrease", {});
+    increase = (event) => this.props.actions.perform(this.props.devicePath + ".commands.increase", {});
+
+    decrease = (event) => this.props.actions.perform(this.props.devicePath + ".commands.decrease", {});
 
     render() {
         if(this.props.ability === 'power') {
             const onValue = this.props.device.children.values.children.on;
-            const isOn = onValue && onValue.data && onValue.data.values && onValue.data.values.elements && onValue.data.values.elements[0] && onValue.data.values.elements[0].value && onValue.data.values.elements[0].value.toLowerCase() === 'true';
+            const isOn = onValue && onValue.data && onValue.data.values && onValue.data.values[0] && onValue.data.values[0].value && onValue.data.values[0].value.toLowerCase() === 'true';
             if (this.props.device.data.classes.includes('light')) {
                 if(isOn) {
                     return (<div className="ability">
@@ -41,26 +43,30 @@ class Ability extends React.Component {
             }
         } else if(this.props.ability === 'power.variable') {
             const onValue = this.props.device.children.values.children.on;
-            const isOn = onValue && onValue.data && onValue.data.values && onValue.data.values.elements && onValue.data.values.elements[0] && onValue.data.values.elements[0].value && onValue.data.values.elements[0].value.toLowerCase() === 'true';
+            const isOn = onValue && onValue.data && onValue.data.values && onValue.data.values[0] && onValue.data.values[0].value && onValue.data.values[0].value.toLowerCase() === 'true';
             const percentValue = this.props.device.children.values.children.percent;
-            const amount = percentValue && percentValue.data && percentValue.data.values && percentValue.data.values.elements && percentValue.data.values.elements[0] && percentValue.data.values.elements[0].value;
+            const percent = percentValue && percentValue.data && percentValue.data.values && percentValue.data.values && percentValue.data.values[0] && percentValue.data.values[0].value;
             if (this.props.device.data.classes.includes('light')) {
                 if(isOn) {
                     return (<div className="ability">
                         <div className="ability-row">
-                            <Button bsStyle='default' onClick={this.turnOff}><img src="../image/light-on.png"/></Button>
+                            <div>
+                                <Button bsStyle='default' onClick={this.turnOff}><img src="../image/light-on.png"/></Button>
+                            </div>
                         </div>
                         <div className="ability-row">
-                            <input type="range" id="brightness-slider" min="0" max="100" step="1" value={amount} />
+                            <input type="range" id="brightness-slider" min="0" max="100" step="1" onChange={this.set} value={percent} />
                         </div>
                     </div>)
                 } else {
                     return (<div className="ability">
                         <div className="ability-row">
-                            <Button bsStyle='default' onClick={this.turnOff}><img src="../image/light-off.png"/></Button>
+                            <div>
+                                <Button bsStyle='default' onClick={this.turnOn}><img src="../image/light-off.png"/></Button>
+                            </div>
                         </div>
                         <div className="ability-row">
-                            <input type="range" id="brightness-slider" min="0" max="100" step="1" value={amount} />
+                            <input type="range" id="brightness-slider" min="0" max="100" step="1" onChange={this.set} value={percent} />
                         </div>
                     </div>)
                 }
@@ -68,23 +74,23 @@ class Ability extends React.Component {
                 if(isOn) {
                     return (<div className="ability">
                         <div className="ability-row">
-                            <Button bsStyle='default' onClick={this.turnOff}><img src="../image/power-on.png"/></Button>
+                            <div>
+                                <Button bsStyle='default' onClick={this.turnOff}><img src="../image/power-on.png"/></Button>
+                            </div>
                         </div>
                         <div className="ability-row">
-                            <Button bsStyle='default' onClick={this.decrease}>-</Button>
-                            <span>{amount}%</span>
-                            <Button bsStyle='default' onClick={this.increase}>+</Button>
+                            <input type="range" id="brightness-slider" min="0" max="100" step="1" onChange={this.set} value={percent} />
                         </div>
                     </div>)
                 } else {
                     return (<div className="ability">
                         <div className="ability-row">
-                            <Button bsStyle='default' onClick={this.turnOff}><img src="../image/power-off.png"/></Button>
+                            <div>
+                                <Button bsStyle='default' onClick={this.turnOn}><img src="../image/power-off.png"/></Button>
+                            </div>
                         </div>
                         <div className="ability-row">
-                            <Button bsStyle='default' onClick={this.decrease}>-</Button>
-                            <span>{amount}%</span>
-                            <Button bsStyle='default' onClick={this.increase}>+</Button>
+                            <input type="range" id="brightness-slider" min="0" max="100" step="1" onChange={this.set} value={percent} />
                         </div>
                     </div>)
                 }
