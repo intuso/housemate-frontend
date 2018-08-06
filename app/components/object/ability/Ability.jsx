@@ -16,86 +16,72 @@ class Ability extends React.Component {
 
     decrease = (event) => this.props.actions.perform(this.props.devicePath + ".commands.decrease", {});
 
-    render() {
-        if(this.props.ability === 'power') {
-            const onValue = this.props.device.children.values.children.on;
-            const isOn = onValue && onValue.data && onValue.data.values && onValue.data.values[0] && onValue.data.values[0].value && onValue.data.values[0].value.toLowerCase() === 'true';
-            if (this.props.device.data.classes.includes('light')) {
-                if(isOn) {
-                    return (<div className="ability">
-                        <Button bsStyle='default' onClick={this.turnOff}><img src="../image/light-on.png"/></Button>
-                    </div>)
-                } else {
-                    return (<div className="ability">
-                        <Button bsStyle='default' onClick={this.turnOn}><img src="../image/light-off.png"/></Button>
-                    </div>)
-                }
-            } else {
-                if(isOn) {
-                    return (<div className="ability">
-                        <Button bsStyle='default' onClick={this.turnOff}><img src="../image/power-on.png"/></Button>
-                    </div>)
-                } else {
-                    return (<div className="ability">
-                        <Button bsStyle='default' onClick={this.turnOn}><img src="../image/power-off.png"/></Button>
-                    </div>)
-                }
-            }
-        } else if(this.props.ability === 'power.variable') {
-            const onValue = this.props.device.children.values.children.on;
-            const isOn = onValue && onValue.data && onValue.data.values && onValue.data.values[0] && onValue.data.values[0].value && onValue.data.values[0].value.toLowerCase() === 'true';
+    power = () => {
+
+        // get the value objects and their values
+        const onValue = this.props.device.children.values.children.on;
+        const isOn = onValue && onValue.data && onValue.data.values && onValue.data.values[0] && onValue.data.values[0].value && onValue.data.values[0].value.toLowerCase() === 'true';
+
+        // get the commands
+        const onCommand = isOn ? this.turnOff : this.turnOn;
+
+        // build up the css classes
+        const allClasses = this.props.device.data.classes.slice();
+        allClasses.push('power');
+        const onClasses = allClasses.slice();
+        onClasses.push(isOn ? 'on' : 'off');
+
+        // make the react component
+        const button = (<div className="ability-row">
+            <Button bsStyle='default' onClick={onCommand}><img className={onClasses.join(' ')}/></Button>
+        </div>);
+
+        // if it's variable, create the slider
+        let slider = null;
+        if(this.props.ability === 'power.variable') {
+
+            // get the value objects and their values
             const percentValue = this.props.device.children.values.children.percent;
             const percent = percentValue && percentValue.data && percentValue.data.values && percentValue.data.values && percentValue.data.values[0] && percentValue.data.values[0].value;
-            if (this.props.device.data.classes.includes('light')) {
-                if(isOn) {
-                    return (<div className="ability">
-                        <div className="ability-row">
-                            <div>
-                                <Button bsStyle='default' onClick={this.turnOff}><img src="../image/light-on.png"/></Button>
-                            </div>
-                        </div>
-                        <div className="ability-row">
-                            <input type="range" id="brightness-slider" min="0" max="100" step="1" onChange={this.set} value={percent} />
-                        </div>
-                    </div>)
-                } else {
-                    return (<div className="ability">
-                        <div className="ability-row">
-                            <div>
-                                <Button bsStyle='default' onClick={this.turnOn}><img src="../image/light-off.png"/></Button>
-                            </div>
-                        </div>
-                        <div className="ability-row">
-                            <input type="range" id="brightness-slider" min="0" max="100" step="1" onChange={this.set} value={percent} />
-                        </div>
-                    </div>)
-                }
-            } else {
-                if(isOn) {
-                    return (<div className="ability">
-                        <div className="ability-row">
-                            <div>
-                                <Button bsStyle='default' onClick={this.turnOff}><img src="../image/power-on.png"/></Button>
-                            </div>
-                        </div>
-                        <div className="ability-row">
-                            <input type="range" id="brightness-slider" min="0" max="100" step="1" onChange={this.set} value={percent} />
-                        </div>
-                    </div>)
-                } else {
-                    return (<div className="ability">
-                        <div className="ability-row">
-                            <div>
-                                <Button bsStyle='default' onClick={this.turnOn}><img src="../image/power-off.png"/></Button>
-                            </div>
-                        </div>
-                        <div className="ability-row">
-                            <input type="range" id="brightness-slider" min="0" max="100" step="1" onChange={this.set} value={percent} />
-                        </div>
-                    </div>)
-                }
-            }
-        } else return null;
+
+            // build up the css classes
+            const decreaseClasses = allClasses.slice();
+            decreaseClasses.push('decrease');
+            const increaseClasses = allClasses.slice();
+            increaseClasses.push('increase');
+
+            // make the react component
+            slider = (<div className="ability-row">
+                <Button bsStyle='default' bsSize='xsmall' onClick={this.decrease}><img className={decreaseClasses.join(' ')}/></Button>
+                <input type="range" id="brightness-slider" min="0" max="100" step="1" onChange={this.set} value={percent}/>
+                <Button bsStyle='default' bsSize='xsmall' onClick={this.increase}><img className={increaseClasses.join(' ')}/></Button>
+            </div>);
+        }
+        return (<div className="ability">
+            {button}
+            {slider}
+        </div>);
+    };
+
+    temperature = () => {
+
+        // get the value objects and their values
+        const temperatureValue = this.props.device.children.values.children.percent;
+        const temperature = temperatureValue && temperatureValue.data && temperatureValue.data.values && temperatureValue.data.values && temperatureValue.data.values[0] && temperatureValue.data.values[0].value;
+
+        // make the react component
+        const img = (<div className="ability-row">
+            <img className={onClasses.join(' ')}/>{temperature} C
+        </div>);
+    };
+
+    render() {
+        if (this.props.ability === 'power' || this.props.ability === 'power.variable')
+            return power();
+        if (this.props.ability === 'temperaturesensor' || this.props.ability === 'temperaturesensor.thermostat')
+            return temperature();
+        else
+            return null;
     }
 }
 

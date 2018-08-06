@@ -104,7 +104,7 @@
     flex-wrap: wrap;
 }
 
-.ability-row {
+.device .ability .ability-row {
     display: flex;
     justify-content: center;
 }
@@ -112,4 +112,40 @@
 .object .body.content img {
     width : 2em;
     height: 2em;
+}
+
+img.power.decrease {
+    content:url("../image/power-decrease.png");
+}
+
+img.power.increase {
+    content:url("../image/power-increase.png");
+}
+
+img.power.off {
+    content:url("../image/power-off.png");
+}
+
+img.power.on {
+    content:url("../image/power-on.png");
+}
+
+img.power.light.decrease {
+    content:url("../image/light-decrease.png");
+}
+
+img.power.light.increase {
+    content:url("../image/light-increase.png");
+}
+
+img.power.light.off {
+    content:url("../image/light-off.png");
+}
+
+img.power.light.on {
+    content:url("../image/light-on.png");
+}
+
+img.temperature {
+    content:url("../image/temperature.png");
 }
