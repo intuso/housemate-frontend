@@ -66,20 +66,28 @@ class Ability extends React.Component {
     temperature = () => {
 
         // get the value objects and their values
-        const temperatureValue = this.props.device.children.values.children.percent;
-        const temperature = temperatureValue && temperatureValue.data && temperatureValue.data.values && temperatureValue.data.values && temperatureValue.data.values[0] && temperatureValue.data.values[0].value;
+        const temperatureValue = this.props.device.children.values.children.temperature;
+        const temperature = temperatureValue && temperatureValue.data && temperatureValue.data.values && temperatureValue.data.values && temperatureValue.data.values[0] && temperatureValue.data.values[0].value ;
+
+        // build up the css classes
+        const allClasses = this.props.device.data.classes.slice();
+        allClasses.push('temperature');
 
         // make the react component
         const img = (<div className="ability-row">
-            <img className={onClasses.join(' ')}/>{temperature} C
+            <img className={allClasses.join(' ')}/>{temperature} C
         </div>);
-    };
+
+        return (<div className="ability">
+            {img}
+        </div>);
+    }
 
     render() {
         if (this.props.ability === 'power' || this.props.ability === 'power.variable')
-            return power();
+            return this.power();
         if (this.props.ability === 'temperaturesensor' || this.props.ability === 'temperaturesensor.thermostat')
-            return temperature();
+            return this.temperature();
         else
             return null;
     }
