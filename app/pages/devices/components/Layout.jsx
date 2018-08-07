@@ -20,7 +20,7 @@ class Layout extends React.Component {
                 view : {
                     _type : "device",
                     mode : "SELECTION",
-                    values : {
+                    components : {
                         _type : "list",
                         mode : "ANCESTORS",
                         watchAncestors : true

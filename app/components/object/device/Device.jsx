@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Col, Glyphicon } from 'react-bootstrap';
-import Ability from '../ability/Ability.jsx'
+import Component from '../component/Component.jsx'
 import Name from '../Name.jsx'
 
 const Device = ({devicePath, device}) => (
@@ -9,7 +9,7 @@ const Device = ({devicePath, device}) => (
         <Name name={device.data.name} />
         <div className="body container">
             <div className="body content">
-                {device.data && device.data.abilities && device.data.abilities.map((ability) => <Ability key={ability} devicePath={devicePath} device={device} ability={ability} />)}
+                {device.children && device.children.components && device.children.components.children && Object.keys(device.children.components.children).map((componentId) => <Component key={componentId} devicePath={devicePath} device={device} componentPath={devicePath + '.components.' + componentId} component={device.children.components.children[componentId]} />)}
             </div>
         </div>
     </li>
