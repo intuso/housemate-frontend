@@ -5,7 +5,7 @@ import { Label, Row } from 'react-bootstrap'
 import Device from "./Device.jsx"
 
 const DeviceList = ({tree}) => (
-    <ul className="object-list">
+    <ul className="hm-object-list">
         {tree.children && tree.children.devices && tree.children.devices.children && Object.keys(tree.children.devices.children).map((deviceId) => <Device key={deviceId} devicePath={tree.children.devices.children[deviceId].data.path} device={get(tree, tree.children.devices.children[deviceId].data.path)} />)}
     </ul>
 );

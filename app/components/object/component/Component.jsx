@@ -21,46 +21,26 @@ class Component extends React.Component {
         // get the value objects and their values
         const onValue = this.props.component.children.values.children.on;
         const isOn = onValue && onValue.data && onValue.data.values && onValue.data.values[0] && onValue.data.values[0].value && onValue.data.values[0].value.toLowerCase() === 'true';
-
-        // get the commands
-        const onCommand = isOn ? this.turnOff : this.turnOn;
+        // get the value objects and their values
+        const percentValue = this.props.component.children.values.children.percent;
+        const percent = percentValue && percentValue.data && percentValue.data.values && percentValue.data.values && percentValue.data.values[0] && percentValue.data.values[0].value;
 
         // build up the css classes
-        const allClasses = this.props.component.data.classes.slice();
-        allClasses.push('power');
-        const onClasses = allClasses.slice();
-        onClasses.push(isOn ? 'on' : 'off');
+        const classes = this.props.component.data.classes.join(' ');
+        const onClass = isOn ? 'on ' : 'off ';
 
-        // make the react component
-        const button = (<div className="ability-row">
-            <Button bsStyle='default' onClick={onCommand}><img className={onClasses.join(' ')}/></Button>
-        </div>);
-
-        // if it's variable, create the slider
-        let slider = null;
+        // return the react component, with a slider if it's variable power
         if(abilities.includes('power.variable')) {
-
-            // get the value objects and their values
-            const percentValue = this.props.component.children.values.children.percent;
-            const percent = percentValue && percentValue.data && percentValue.data.values && percentValue.data.values && percentValue.data.values[0] && percentValue.data.values[0].value;
-
-            // build up the css classes
-            const decreaseClasses = allClasses.slice();
-            decreaseClasses.push('decrease');
-            const increaseClasses = allClasses.slice();
-            increaseClasses.push('increase');
-
-            // make the react component
-            slider = (<div className="ability-row">
-                <Button bsStyle='default' bsSize='xsmall' onClick={this.decrease}><img className={decreaseClasses.join(' ')}/></Button>
-                <input type="range" id="brightness-slider" min="0" max="100" step="1" onChange={this.set} value={percent}/>
-                <Button bsStyle='default' bsSize='xsmall' onClick={this.increase}><img className={increaseClasses.join(' ')}/></Button>
+            return (<div className="hm-lr">
+                <img onClick={isOn ? this.turnOff : this.turnOn} className={"inline space-after button power " + onClass + classes}/>
+                <img onClick={this.decrease} className={"inline space-after button button-small power decrease " + classes}/>
+                <input className="inline space-after slider" type="range" id="brightness-slider" min="0" max="100" step="1"
+                       onChange={this.set} value={percent}/>
+                <img  onClick={this.increase} className={"inline button button-small power increase " + classes}/>
             </div>);
+        } else {
+            return <img onClick={isOn ? this.turnOff : this.turnOn} className={"button power " + onClass + classes}/>;
         }
-        return (<div className="ability">
-            {button}
-            {slider}
-        </div>);
     };
 
     temperature = (abilities) => {
@@ -73,14 +53,8 @@ class Component extends React.Component {
         const allClasses = this.props.component.data.classes.slice();
         allClasses.push('temperature');
 
-        // make the react component
-        const img = (<div className="ability-row">
-            <img className={allClasses.join(' ')}/>{temperature} C
-        </div>);
-
-        return (<div className="ability">
-            {img}
-        </div>);
+        // return the react component
+        return (<span>{temperature}&deg;c</span>);
     };
 
     render() {

@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 const Name = ({name}) => (
-    <div className="name"><span>{name}</span></div>
+    <div className="hm-name"><span>{name}</span></div>
 );
 
 const mapStateToProps = (state, ownProps) => ({
