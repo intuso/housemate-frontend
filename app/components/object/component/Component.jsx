@@ -16,34 +16,77 @@ class Component extends React.Component {
 
     decrease = (event) => this.props.actions.perform(this.props.componentPath + ".commands.decrease", {});
 
-    power = (abilities) => {
+    power = (abilities, classes, on) => {
+        if (abilities.includes('power-control') && abilities.includes('power-state')) {
+            return <img onClick={on ? this.turnOff : this.turnOn}
+                        className={"button power " + (on ? "on " : "off ") + classes}/>;
+        } else if(abilities.includes('power-control')) {
+            return <img onClick={on ? this.turnOff : this.turnOn}
+                        className={"button power " + classes}/>;
+        } else if(abilities.includes('power-state')) {
+            return <img className={"button power " + (on ? "on " : "off ") + classes}/>;
+        } else
+            return <div/>;
+    };
+
+    variablePower = (abilities, classes, percent) => {
+        if (abilities.includes('power-variable-control') && abilities.includes('power-variable-state')) {
+            return <div>
+                <img onClick={this.decrease}
+                     className={"inline space-after-small button button-small power decrease " + classes}/>
+                <input className="inline space-after-small slider" type="range" id="brightness-slider" min="0" max="100"
+                       step="1" onChange={this.set} value={percent}/>
+                <img onClick={this.increase} className={"inline button button-small power increase " + classes}/>
+            </div>;
+        } else if(abilities.includes('power-variable-control')) {
+            return <div>
+                <img onClick={this.decrease}
+                     className={"inline space-after-small button button-small power decrease " + classes}/>
+                <input className="inline space-after-small slider" type="range" id="brightness-slider" min="0" max="100"
+                       step="1" onChange={this.set}/>
+                <img onClick={this.increase} className={"inline button button-small power increase " + classes}/>
+            </div>;
+        } else if(abilities.includes('power-variable-state')) {
+            return <input className="inline space-after-small slider" type="range" id="brightness-slider" min="0" max="100"
+                          step="1" value={percent}/>;
+        } else
+            return <div/>;
+    };
+
+    powerComponent = (abilities) => {
 
         // get the value objects and their values
         const onValue = this.props.component.children.values.children.on;
-        const isOn = onValue && onValue.data && onValue.data.values && onValue.data.values[0] && onValue.data.values[0].value && onValue.data.values[0].value.toLowerCase() === 'true';
+        const on = onValue && onValue.data && onValue.data.values && onValue.data.values[0] && onValue.data.values[0].value && onValue.data.values[0].value.toLowerCase() === 'true';
         // get the value objects and their values
         const percentValue = this.props.component.children.values.children.percent;
         const percent = percentValue && percentValue.data && percentValue.data.values && percentValue.data.values && percentValue.data.values[0] && percentValue.data.values[0].value;
 
         // build up the css classes
         const classes = this.props.component.data.classes.join(' ');
-        const onClass = isOn ? 'on ' : 'off ';
+
+        const hasPower = abilities.includes('power-control') || abilities.includes('power-state');
+        const hasVariablePower = abilities.includes('power-variable-control') || abilities.includes('power-variable-state');
 
         // return the react component, with a slider if it's variable power
-        if(abilities.includes('power.variable')) {
-            return (<div className="hm-lr">
-                <img onClick={isOn ? this.turnOff : this.turnOn} className={"inline space-after button power " + onClass + classes}/>
-                <img onClick={this.decrease} className={"inline space-after button button-small power decrease " + classes}/>
-                <input className="inline space-after slider" type="range" id="brightness-slider" min="0" max="100" step="1"
-                       onChange={this.set} value={percent}/>
-                <img  onClick={this.increase} className={"inline button button-small power increase " + classes}/>
+        if (hasPower && hasVariablePower) {
+            return (<div>
+                <div className="inline space-after">
+                    {this.power(abilities, classes, on)}
+                </div>
+                <div className="inline">
+                    {this.variablePower(abilities, classes, percent)}
+                </div>
             </div>);
-        } else {
-            return <img onClick={isOn ? this.turnOff : this.turnOn} className={"button power " + onClass + classes}/>;
-        }
+        } else if (hasPower) {
+            return this.power(abilities, classes, on)
+        } else if (hasVariablePower) {
+            return this.variablePower(abilities, classes, percent)
+        } else
+            return <div/>;
     };
 
-    temperature = (abilities) => {
+    temperatureComponent = (abilities) => {
 
         // get the value objects and their values
         const temperatureValue = this.props.component.children.values.children.temperature;
@@ -59,10 +102,10 @@ class Component extends React.Component {
 
     render() {
         const abilities = this.props.component.data && this.props.component.data.abilities;
-        if (abilities.includes('power') || abilities.includes('power.variable'))
-            return this.power(abilities);
-        else if (abilities.includes('temperaturesensor') || abilities.includes('temperaturesensor.thermostat'))
-            return this.temperature(abilities);
+        if (abilities.includes('power-control') || abilities.includes('power-state') || abilities.includes('power-variable-control') || abilities.includes('power-variable-state'))
+            return this.powerComponent(abilities);
+        else if (abilities.includes('temperature-control') || abilities.includes('temperature-state'))
+            return this.temperatureComponent(abilities);
         else
             return null;
     }
