@@ -133,13 +133,13 @@ img.temperature {
     border-bottom: 0.15em;
     border-left: 0.2em;
     border-style: solid;
-    border-color: #9c5dee;
+    border-color: #159f00;
     border-top-left-radius: 1em;
     border-top-right-radius: 1em;
-    background: #eee;
+    background: rgba(21, 209, 0, 0.13);
     width: 100%;
     padding: 1em;
-    color: #9c5dee;
+    color: #159f00;
     font-size: 1em;
 }
 
@@ -149,7 +149,7 @@ img.temperature {
     border-bottom: 0.2em;
     border-left: 0.2em;
     border-style: solid;
-    border-color: #9c5dee;
+    border-color: #159f00;
     border-bottom-left-radius: 1em;
     border-bottom-right-radius: 1em;
     width: 100%;
